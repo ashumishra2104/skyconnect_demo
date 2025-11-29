@@ -1,0 +1,56 @@
+/* Main container styling */
+.stApp {
+    background-color: #f0f2f5;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Header styling */
+h1, h2, h3 {
+    color: #1a237e; /* Deep Blue */
+    font-weight: 700;
+}
+
+/* Button styling */
+.stButton > button {
+    background-color: #ff6d00; /* Orange accent */
+    color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.stButton > button:hover {
+    background-color: #e65100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Card-like containers for flights */
+.flight-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 1rem;
+    border-left: 5px solid #1a237e;
+}
+
+/* Progress bar styling */
+.progress-container {
+    margin-bottom: 2rem;
+}
+
+/* Hide default streamlit elements */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+/* Input fields */
+.stTextInput > div > div > input {
+    border-radius: 8px;
+}
+
+.stSelectbox > div > div > div {
+    border-radius: 8px;
+}
