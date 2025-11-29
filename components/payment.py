@@ -85,9 +85,38 @@ def render_payment():
         st.markdown(f"### Total: ₹{total_amount:,}")
         
         if st.button("PAY NOW", type="primary", use_container_width=True):
-            st.session_state.booking_id = generate_pnr()
-            st.session_state.step = 5
-            st.rerun()
+            # Prepare data for DB
+            booking_data = {
+                'pnr': generate_pnr(),
+                'total_amount': total_amount,
+                'contact_email': st.session_state.passenger_details[0]['email'],
+                'contact_phone': st.session_state.passenger_details[0]['phone'],
+                'passengers': st.session_state.passenger_details,
+                'flights': {
+                    'outbound': st.session_state.selected_outbound,
+                    'return': st.session_state.selected_return
+                }
+            }
+            
+            # Add seat info to passengers (simplified mapping)
+            # In a real app, we'd map seats to specific passengers more robustly
+            outbound_seats = st.session_state.seat_selection.get('outbound', [])
+            for i, p in enumerate(booking_data['passengers']):
+                if i < len(outbound_seats):
+                    p['seat'] = outbound_seats[i]
+            
+            # Save to DB
+            from utils.db import init_db, save_booking_to_db
+            try:
+                init_db() # Ensure tables exist
+                if save_booking_to_db(booking_data):
+                    st.session_state.booking_id = booking_data['pnr']
+                    st.session_state.step = 5
+                    st.rerun()
+                else:
+                    st.error("Failed to save booking. Please try again.")
+            except Exception as e:
+                st.error(f"Database Error: {e}")
 
 from datetime import datetime
 
