@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="SkyConnect - Flight Booking",
     page_icon="✈️",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 # Load custom CSS
@@ -60,3 +60,8 @@ elif st.session_state.step == 4:
 
 elif st.session_state.step == 5:
     render_confirmation()
+
+# Render Chatbot (always visible)
+from components.chatbot import render_chatbot
+render_chatbot()
+# End of app
